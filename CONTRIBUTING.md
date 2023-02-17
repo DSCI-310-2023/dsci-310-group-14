@@ -1,3 +1,6 @@
+# Contributing to this project
+🙌 Thank you for taking time to contribute to our project! :hand
+
 We welcome all contributions to this project!
 If you notice a bug, or have a feature request,
 please open up an issue [here](https://github.com/UBC-DSCI/dsci-310-group-14/issues).
