@@ -25,6 +25,7 @@ We chose these variables because they are the most indicative of a player's offe
 - To run the container please follow the below steps:
 1) Ensure you are in the correct project directory.
 2) Open command prompt and enter the following:
+   docker build -f Dockerfile .
    docker run -p 8888:8888 -v ${PWD}:/home/jovyan/work dsci_310_jupyter_packages
 3) Copy and paste output from command prompt into browser.
 4) Project files can be accessed under work folder.
