@@ -24,9 +24,8 @@ We chose these variables because they are the most indicative of a player's offe
 
 - To run the container please follow the below steps:
 1) Ensure you are in the correct project directory.
-2) Open command prompt and enter the following: <br/>
-   `docker build --tag dsci_310_jupyter_packages -f Dockerfile .` <br/> <br/>
-   `docker run -p 8888:8888 -v /${PWD}://home/jovyan/work dsci_310_jupyter_packages`
+2) Open command prompt and enter the following:
+docker run -p 8888:8888 -v /${PWD}://home/jovyan/work ysong09/dsci-310-group-14:latest
 3) Copy and paste output that look like `http://127.0.0.1:8888/lab?token=c5d623e01488a9a0109f8b8719a4c982ecb6b9a58baaa55b` into any web browser to access to Jupyter Lab
 4) Next, in Jupyter lab, open `NBA_All-Star_Analysis.ipynb` and click **Kernel** > **Restart** and re-run all the analysis.
 
