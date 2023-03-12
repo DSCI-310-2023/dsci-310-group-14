@@ -38,6 +38,7 @@ library(tidyverse)
 library(GGally)
 library(tidymodels)
 library(themis)
+source("R/visualize.R")
 ```
 
 Next we will use `read.csv()` to read the dataset of all NBA basketball player statistics from online, and head() to visualize what the dataset looks like.
@@ -122,12 +123,9 @@ We use `ggpairs()` from the GGally library to make a scatterplot for every pair 
 ```{r}
 set.seed(2022)
 
-options(repr.plot.width = 9, repr.plot.height = 9) 
-plot <- ggpairs(data_training, columns = 3:9, legend = 1,
-                ggplot2::aes(color = Is_All_Star, alpha = 0.4),
-                upper = list(continuous = "points", wrap("cor", size = 2.5))) +
-                labs(title = "Player Distributions of Various Players Statistics", fill = "Players' type") +
-                theme(plot.title = element_text(size = 25))
+options(repr.plot.width = 9, repr.plot.height = 9)
+
+plot <- visualize_distributions(data_training, feature_start = 3, feature_end = 9, alpha = 4)
                 
 plot
 ```
