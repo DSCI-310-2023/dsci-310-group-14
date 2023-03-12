@@ -38,7 +38,6 @@ library(tidyverse)
 library(GGally)
 library(tidymodels)
 library(themis)
-source("R/clean_all-stars.R)
 ```
 
 Next we will use `read.csv()` to read the dataset of all NBA basketball player statistics from online, and head() to visualize what the dataset looks like.
@@ -55,7 +54,8 @@ We then read another dataset from online using `read_csv()`, which lists every A
 
 ```{r}
 all_stars <- read_csv("https://raw.githubusercontent.com/RayNguyent/DSCI-100-project/develop/data/all_stars_2000_2016.csv")
-all_stars_filtered <- clean_all_stars(all_stars, Year, 2011, 2015) %>% select(Year, Player) %>% 
+all_stars_filtered <- all_stars %>% 
+    filter(Year <= 2015 & Year >= 2011) %>%  select(Year, Player) %>% 
     mutate(Is_All_Star = "All Star")
 head(all_stars_filtered)
 ```
@@ -78,7 +78,8 @@ head(combined_data)
 We used `filter()` to filter for Year from 2011 to 2015 and filtered out player than equal to 0 to ensure all the data set we have are valid data points. We then used `select()` function to pick out desirable columns (Year, Player, MIN, PTS, FGM, FGA, FTM, FTA, TOV, Is_All_Star) for our classification model.
 
 ```{r}
-selected_combined_data <- clean_all_stars(combined_data, Year, 2011, 2015)
+selected_combined_data <- combined_data %>% 
+    filter(Year <= 2015 & Year >= 2011) %>% 
     filter(Player != "0") %>%
     select(Year, Player, MIN, PTS, FGM, FGA, FTM, FTA, TOV, Is_All_Star)
 head(selected_combined_data)
