@@ -18,7 +18,7 @@ The variables that we will be looking at for this data set are the following:
 
 We chose these variables because they are the most indicative of a player's offensive output, which is the main focus of the all star game(Nguyen et al., 2021).
 
-# REPLICATION
+# Replication
 - This project is attached with a Dockerfile using a JupyterLab R-Notebook image from Juypter Image.
   The base image can be accessed here: https://hub.docker.com/r/jupyter/r-notebook
 
@@ -28,6 +28,15 @@ We chose these variables because they are the most indicative of a player's offe
 `docker run -p 8888:8888 -v /${PWD}://home/jovyan/work ysong09/dsci-310-group-14:latest`
 3) Copy and paste output that look like `http://127.0.0.1:8888/lab?token=c5d623e01488a9a0109f8b8719a4c982ecb6b9a58baaa55b` into any web browser to access to Jupyter Lab
 4) Next, in Jupyter lab, open `NBA_All-Star_Analysis.ipynb` and click **Kernel** > **Restart** and re-run all the analysis.
+
+## Dependencies
+- tidyverse
+- GGally
+- tidymodels
+- themis
+- kknnn
+- testthat
+- here
 
 ## Team Members
 - Berkay Talha Acar 
