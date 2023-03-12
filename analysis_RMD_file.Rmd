@@ -1,0 +1,254 @@
+# Predicting NBA All-Star Chance Based on Player Performance
+
+By: Bill Makwae, Ayush Vora, Ray Nguyen, QingRu Kong <br/>
+Modified by: Ray Nguyen, Jeffrey Song, Emilio Dorador, Berkay Talha Acar
+
+## Introduction
+
+Every year in February, NBA fans rejoice as they get to see their favorite players selected for the all-star game. Players are selected by media and fan votes, meaning that popularity is the nominating factor. However, players are more likely to be popular based on their individual game-to-game performance (Grimshaw & Larson, 2020). Thus, this analysis hopes to answer the question: **Can an NBA player’s selection to the all star game be predicted by their annual performance?**
+
+In order to answer this question, we will be using two sets of data, one from ["NBA Player Stats” on nba.com](https://www.nba.com/stats/players/traditional/?sort=PTS&dir=-1&Season=2015-16&SeasonType=Regular%20Season) and [“NBA All Stars 2000-2016” from kaggle.com](https://www.kaggle.com/fmejia21/nba-all-star-game-20002016?select=NBA+All+Stars+2000-2016+-+Sheet1.csv). NBA Player Stats includes all the NBA player statistics for each season from 2010-2016 and the All Star dataset includes the all star statistics from 2000-2016. Using these datasets we aim to make a classification model that will predict whether a player will be an all star for each season based on their annual performances.
+
+The variables that we will be looking at for this data set are the following:
+- Year: Season that the player played.
+- Player: Name of the player.
+- MIN: Average number of minutes that the player played per game.
+- PTS: Average number of points that the player scored per game.
+- FG.: Field Goal Percentage.
+- REB: Average number of rebounds that the player made per game.
+- AST: Average number of assists that the player got per game.
+- Is_All_Star: Whether the player was an All-Star in that season. **This is our classifer.**
+
+We chose these variables because they are the most indicative of a player's offensive output, which is the main focus of the all star game(Nguyen et al., 2021).
+
+
+## Methods and Results
+
+Because the Themis Package is not installed automatically, we must install it.
+
+The following are the libraries that are essential to the model to be created.
+- The Tidyverse library includes packages necessary for common data analysis tasks.
+- The GGally library helps create complex graphs necessary for visualizing data.
+- The Tidymodels library helps create the classification model.
+- The Themis library helps with balancing the data points to provide more accurate results.
+
+
+```{r}
+library(tidyverse)
+library(GGally)
+library(tidymodels)
+library(themis)
+source("R/visualize.R")
+```
+
+Next we will use `read.csv()` to read the dataset of all NBA basketball player statistics from online, and head() to visualize what the dataset looks like.
+
+```{r}
+players <- read.csv("https://raw.githubusercontent.com/RayNguyent/DSCI-100-project/urls/data/nba_player_stats.csv")
+head(players)
+```
+
+**Table 1.** This is the orginial player file pulled from nba_player_stats.csv
+
+
+We then read another dataset from online using `read_csv()`, which lists every All Star player, and the year that they were an All Star. We then tidied the data. We filtered all the players to keep only the statistics from 2011 to 2015 using `filter()`, then selected only the `Year` and `Player` columns using `select()`, and finally added a new column that all the players had called `Is_All_Star` using `mutate()`. Each player in the dataset had `"All Star"` in this column. Finally, we used `head()` to visualize the information.
+
+```{r}
+all_stars <- read_csv("https://raw.githubusercontent.com/RayNguyent/DSCI-100-project/develop/data/all_stars_2000_2016.csv")
+all_stars_filtered <- all_stars %>% 
+    filter(Year <= 2015 & Year >= 2011) %>% 
+    select(Year, Player) %>% 
+    mutate(Is_All_Star = "All Star")
+head(all_stars_filtered)
+```
+
+**Table 2.** List of All Star players in the all_star dataset from 2011-2015
+
+
+We then combined the two datasets using `left_join()`, by matching the `Year` and `Player` columns. This left an N/A for all players that were not All Stars in the `Is_All_Star` column. We replaced all of the N/A's with `"Regular"`. Then, we changed the `Is_All_Star` column into a factor. Finally, we used `head()` to visualize the dataset.
+
+```{r}
+combined_data <- left_join(players, all_stars_filtered, by = c("Year", "Player")) %>% 
+    replace(is.na(.), "Regular") %>% 
+    mutate(Is_All_Star = as_factor(Is_All_Star))
+
+head(combined_data)
+```
+
+**Table 3.** Combination of data from **Table 1** and **Table 2**
+
+We used `filter()` to filter for Year from 2011 to 2015 and filtered out player than equal to 0 to ensure all the data set we have are valid data points. We then used `select()` function to pick out desirable columns (Year, Player, MIN, PTS, FGM, FGA, FTM, FTA, TOV, Is_All_Star) for our classification model.
+
+```{r}
+selected_combined_data <- combined_data %>% 
+    filter(Year <= 2015 & Year >= 2011) %>% 
+    filter(Player != "0") %>%
+    select(Year, Player, MIN, PTS, FGM, FGA, FTM, FTA, TOV, Is_All_Star)
+head(selected_combined_data)
+```
+
+**Table 4: Summary Table.** The above table provides the first 6 rows of the summary table that we are using as training and testing data.
+
+
+We used set.seed(2022) to ensure the same set of data is used and the data set is reproducible. Used `initial_split()` function to split the data set into 70:30 ratio of training and testing data. We choose 70:30 ratio because it is an optimal ratio to represent the training and testing data, as we want to maximize data used for training but still leave some data left for testing the classification model. `Is_All_Star` is assigned as the strata because it is the classifier we want to find. 70% of the data is assigned to data_training using `training()`, and 30% of the data is assigned to data_testing using `testing()`. Finally, the `head()` function is used to show the first 6 column of the training data.
+
+```{r}
+set.seed(2022)
+data_split <- initial_split(selected_combined_data, prop = 0.7, strata = Is_All_Star)
+data_training <- training(data_split)
+data_testing <- testing(data_split)
+```
+
+We want to calculate the average for each variable by first group the observations by `Is_All_Star` and then use `summarize()` to compute the means. 
+
+```{r}
+averages <- group_by(data_training, Is_All_Star) %>% 
+    summarize(across(MIN:TOV, mean))
+averages
+```
+**Table 5.** The above data table shows the mean statistics of All Star players verse Regular players
+
+We still group by `Is_All_Star` and use summarize to calculate the number of observations for each group then divide by the total number of observations.
+
+```{r}
+proportion <- group_by(data_training, Is_All_Star) %>% 
+    summarize(Counts = n()) %>% 
+    mutate(Percent = 100*Counts/nrow(data_training))
+
+proportion
+```
+**Table 6.** The above data table shows the percentage and count of all star players and regular players in the overall dataset. 
+
+We use `ggpairs()` from the GGally library to make a scatterplot for every pair of variables to visualize the relationship between them. By doing so, we can see what variables truly distinguish All Star players from regular players.
+
+```{r}
+set.seed(2022)
+
+options(repr.plot.width = 9, repr.plot.height = 9)
+
+plot <- visualize_distributions(data_training, feature_start = 3, feature_end = 9, alpha = 4)
+                
+plot
+```
+**Figure 1: Visualization for the summary data.**: Above is a group of graphs generated via ggpair that compares all of the varibles (MIN, PTS, FGM, FGA, FTM, FTA, TOV, Is_All_Star). As we can see from above, all the graphs shows a postive correlation in a semi-linear trend, with All Star players having a higher perfromance than Regular players. The density plot in the diagonal line shows the density distribution of All Star player vs. Regular. With the positive correlation, we decided to use the variables graphed in our predition model to predict whether or not a high player performance will yield to a high rate of earning the all star title.  
+
+
+Cross validation(`vfold_cv`) will give us a higher accuracy as it split our training data into 4 training and 1 testing. This way, there would be 5 tests done to evalute the accuracy of the model instead of just one. We chose to fold by 5 because our dataset is quite large, folidng by 10 will take too much time for the kernal to run. We create the `k-vals` data frame with the “neighbors” variable containing values from 1 to 70, stepping by 5, using the seq function. After experimenting with different K ranging, 1 to 70 stepping by 5 run in a relatively short period of time while giving us a decent K range, therefore we chose it as our K range.
+
+Then, we create a recipe by setting the classifier to be `Is_All_Star` and the rest are predictors. Next, we centered and scale the data with `step_center()` and `step_scale()`. After, we balanced the data using `step_upsample()`, since All-Stars only make up 10% of the dataset (as shown by `proportions`), now the all star and regular varible will be at a 1:1 ratio. Afterwards, we created a tuning model specification for K-nearest neighbors classification by calling `nearest_neighbors()` and setting the engine to be “kknn” with `set_engine()` and the model to be “classification” with `set_mode()`. We chose classification because our classifier is a factor, and we are trying to find whether a player will be all star or regular player which does not involve numeric value output.
+
+Lastly, we add the recipe and the model specification into a workflow and let it run the cross validation test on data_fold by passing k_vals into grid argument of `tune_grid()`. Then we use `collect_metrics()` and `filter()` to only look at the “accuracy” part of .metric to acquire the accuracy of our model for each K.
+
+```{r}
+set.seed(2022)
+
+data_fold <- vfold_cv(data_training, v = 5, strata = Is_All_Star)
+
+k_vals <- tibble(neighbors = seq(from = 1, to = 70, by = 5))
+
+data_recipe <- recipe(Is_All_Star ~ MIN + PTS + FGM + FGA + FTM + FTA + TOV, data = data_training) %>%
+    step_scale(all_predictors()) %>%
+    step_center(all_predictors()) %>% 
+    step_upsample(Is_All_Star, over_ratio =1, skip = TRUE)
+
+
+data_spec <- nearest_neighbor(weight_func = "rectangular", neighbors = tune()) %>%
+    set_engine("kknn") %>%
+    set_mode("classification")
+
+data_fit <- workflow() %>%
+    add_recipe(data_recipe) %>%
+    add_model(data_spec) %>%
+    tune_grid(resamples = data_fold, grid = k_vals) %>%
+    collect_metrics() %>%
+    filter(.metric == "accuracy")
+```
+
+When we graphed the various possible K values by accuracy, it seemed like 1 is a good K but this is not accurate because it leads to overfitting. Instead, we chose an odd number that is near 60, such as 61. As we have experimented, any K value ranging from 30-70 does not make too much difference to the accuracy of predicting the All Star player, therefore, we chose 61 as it has the highest model accuracy rate within the 30-70 K range.
+
+```{r}
+data_plot <- ggplot(data_fit, aes(x = neighbors, y = mean)) +
+    geom_line() +
+    geom_point() +
+    xlab("Number of K") +
+    ylab("Accuracy") + theme(text = element_text(size = 18)) + ggtitle(" Plot of estimated accuracy versus the number of neighbors")
+
+data_plot
+```
+
+
+**Figure 2**. The above graph shows the accuracy for each neighbour input. The highest accuracy is near the first K. A steep decline to 0.825 when we have one neighbour vs 15 neighbours and a gentle decline from 15-32 neighbours. Starting from ~32 neighbours the accuracy increase to a small peak every 10 neighbours and decline by half every 10 neighbours. 
+
+
+After we determined the best K value for our model, we updated our model by setting neighbours to 61. Then, we updated the workflow to add the recipe, the updated model, and fit the training data with `fit()`. We are using the testing data as this is used to test the accuracy of our model with data unseen before. Finally, we used the `predict()` function with our model and our testing data to see how well our model performed. Then, we binded our columns with the testing data to see the data and predictions side-by-side. 
+
+```{r}
+data_updated_spec <- nearest_neighbor(weight_func = "rectangular", neighbors = 61) %>%
+    set_engine("kknn") %>%
+    set_mode("classification")
+
+data_updated_fit <- workflow() %>%
+    add_recipe(data_recipe) %>%
+    add_model(data_updated_spec) %>%
+    fit(data_training)
+
+data_prediction <- predict(data_updated_fit, data_testing) %>%
+    bind_cols(data_testing)
+```
+
+We found the accuracy of the classifier by using the `metrics()` function on the data_prediction dataframe. By setting the truth parameter to Is_All_Star and the estimate parameter to .pred_class, we ended up with a frame of data metrics for when our classifier tries to predict the All Star players. We then filtered the .metric column by the accuracy tag with `filter()` and selected the .estimate column to find the accuracy of our model with `select()`. The overall accuracy of our predication model is 80.7%.
+
+```{r}
+data_metrics <- metrics(data_prediction, truth = Is_All_Star, estimate = .pred_class) %>%
+    filter(.metric == "accuracy") %>%
+    select(.estimate) %>%
+    pull()
+
+data_metrics
+```
+
+Next, we used conf_mat() on the data_prediction data frame to create a confusion matrix of our classifier’s results. Which shows that our All Star prediction accuracy is 23/26(88.5%), and regular prediction accuracy is 237/296 (80.1%).
+
+```{r}
+confusion <- conf_mat(data_prediction, truth = Is_All_Star, estimate = .pred_class)
+confusion
+```
+
+**Table 7: Final Data Table.** Above is a confusion matrix displaying how many All Star and Regular our model prediction is correct and wrong. Out of 26 All Star, our model predicted 23 All Star correctly and 3 wrong. Out of 296 Regular players, 237 players are predicted correcly and 59 were predicted wrong. This brings our accuacry of All Star to 88.5%.
+
+
+We created a data frame based on the confusion matrix above using the `tibble()` function. Then we plotted a percent stacked bar graph with the correctness ratio on the y axis and All Star or Regular label on the x axis. This graph shows that the model is more accurate when predicting the All Star players than the Regular players, but both still have a high accuracy.
+
+```{r}
+confusion_tibble <- tibble(all_star = c("All Star", "All Star", "Regular", "Regular"), 
+                           correctness = c(" Incorrect", "Correct", " Incorrect", "Correct"),
+                           value = c(3, 23, 59, 237))
+confusion_graph <- ggplot(confusion_tibble, aes(x = all_star, y = value, fill = correctness)) +
+    geom_bar(stat = "identity", position = "fill") +
+    labs(x = "Type of Player", y = "Correct : Incorrect Prediction Ratio", fill = "Legend", title = "Correct vs Incorrect Ratio of All Star and Regular")
+
+confusion_graph
+```
+**Figure 3: Final Visualization** The blue shade represent the players that our model predicted correctly, while the red shaded area represent the palyers that our model predicted incorrectly. Overall 0.885 of all star players was predicted correctly, while 0.801 of the regular players were predicted correctly.
+
+
+## Discussion
+#### Summarize what you found
+
+We found that using our classifier correctly identified a player to be an all-star 88.5% of the time. This is shown by our confusion matrix where 23/26 all-stars were correctly identified. However, the classifier incorrectly classified regular players as all-stars 59/256. This reduced our overall prediction accuracy to 80.1%. As a general takeaway, the higher a player's statistics (at least the ones we observed in this study) meant that a player was more likely to be an all-star.
+#### Discuss whether this is what you expected to find?
+
+This analysis went as expected. We initially thought that higher player statistics would be a good identifier of an all-star player, and our classifier showed this. Our classifier was able to improve the accuracy of identifying an all-star player by over 44.5% percent over a fifty-fifty guess model.
+#### Discuss what impact could such findings have?
+
+The impact of our findings could include: helping organizations determine player value when negotiating player contracts to maximize the return outcome of their investment, determining trade value, and even the overall organization value. Our model would also allow teams to focus resources on certain players in order to increase their chance of earning the all star title.
+#### Discuss what future questions could this lead to?
+
+Future studies could look at weighing the different player statistics differently based on their perceived value, and see if there are certain statistics that are more influential in predicting a player’s all-star status. Another study could look at classifying whether a player is a good fit for the team, as the player could address any weaknesses in their offense or defense. 
+
+## Work Cited
+1. Grimshaw, S. D., &amp; Larson, J. S. (2020). Effect of star power on NBA all-star game TV audience. Journal of Sports Economics, 22(2), 139–163. https://doi.org/10.1177/1527002520959127 
+2. Nguyen, N. H., Nguyen, D. T., Ma, B., &amp; Hu, J. (2021). The application of machine learning and Deep Learning in sport: Predicting NBA players’ performance and popularity. Journal of Information and Telecommunication, 1–19. https://doi.org/10.1080/24751839.2021.1977066 
+3. Nguyen, N., Ma, B., Hu, J. (2020). Predicting National Basketball Association Players Performance and Popularity: A Data Mining Approach. In: Nguyen, N.T., Hoang, B.H., Huynh, C.P., Hwang, D., Trawiński, B., Vossen, G. (eds) Computational Collective Intelligence. ICCCI 2020. Lecture Notes in Computer Science(), vol 12496. Springer, Cham. https://doi.org/10.1007/978-3-030-63007-2_23
+4. Liu, Y. (2021). Star players in the NBA - decoys or game-changers? Canadian Center of Science and Education. doi:10.5539/jmr.v13n2p40
+
