@@ -56,7 +56,8 @@ We then read another dataset from online using `read_csv()`, which lists every A
 ```{r}
 all_stars <- read_csv("https://raw.githubusercontent.com/RayNguyent/DSCI-100-project/develop/data/all_stars_2000_2016.csv")
 all_stars_filtered <- all_stars %>% 
-    filter(Year <= 2015 & Year >= 2011) %>%  select(Year, Player) %>% 
+    filter(Year <= 2015 & Year >= 2011) %>% 
+    select(Year, Player) %>% 
     mutate(Is_All_Star = "All Star")
 head(all_stars_filtered)
 ```
