@@ -8,7 +8,7 @@
 #' @example getallstars(2011,2015)
 
 library("tidyverse")
-source(here("R/01_season_filter.R"))
+source(here::here("R/01_season_filter.R"))
 getallstars <- function(from,to) {
   players <- read.csv("https://raw.githubusercontent.com/RayNguyent/DSCI-100-project/urls/data/nba_player_stats.csv")
   all_stars <- read.csv("https://raw.githubusercontent.com/RayNguyent/DSCI-100-project/develop/data/all_stars_2000_2016.csv")
