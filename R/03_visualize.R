@@ -1,3 +1,31 @@
+library(ggplot2)
+library(GGally)
+
+#' Function to visualize the distributions for features and columns 
+#' 
+#' Display all Player Distributions of Various Players Statistics
+#' 
+#' @param df data frame
+#' @param neighbors number of neighbors
+#' @param acc accuracy value
+#' @param title title for the plot
+#' 
+#' @return plot
+#' 
+#' @examples
+#'visualize_knn(data_fit, neighbors = neighbors, acc = mean, title = Plot of estimated accuracy versus the number of neighbors)
+
+visualize_knn <- function(df, x, y, title){
+  plot <- ggplot(df) +
+    geom_line(aes(x = x, y = y)) +
+    geom_point() +
+    labs(title = title)+
+    xlab("Number of K") +
+    ylab("Accuracy") + theme(text = element_text(size = 18))# + 
+    #ggtitle(title)
+  return (plot)
+}
+
 #' Function to visualize the distributions for features and columns 
 #' 
 #' Display all Player Distributions of Various Players Statistics
@@ -24,3 +52,6 @@ visualize_distributions <- function(df, feature_start, feature_end, alpha){
 # alpha <- 0.4
 # feature_start <- 3
 # feature_end <- 9
+
+
+

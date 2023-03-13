@@ -9,5 +9,7 @@ output1 <- data.frame(Year = c(2011,2012,2016),
                       Player = c("Shaq O'neil", "Steph Curry", "Yao Ming"),
                       Height = c(194,200,210))
 
+knn_acc_sample <- data.frame(neighbors = c(1, 3, 5),
+                             acc = c(70, 80, 90))
 
 
