@@ -1,0 +1,10 @@
+services:
+  predict_NBA_All-stars:
+    image: jupyter/r-notebook
+    ports: 
+      - "8888:8888"
+    volumes:
+      - /${PWD}:/home/jovyan/work dsci_310_jupyter_packages
+    environment:
+      DISABLE_AUTH: true
+      
