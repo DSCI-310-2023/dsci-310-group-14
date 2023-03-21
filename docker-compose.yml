@@ -4,7 +4,7 @@ services:
     ports: 
       - "8888:8888"
     volumes:
-      - /${PWD}:/home/jovyan/work dsci_310_jupyter_packages
+      - /${PWD}://home/jovyan/work ysong09/dsci-310-group-14:latest
     environment:
       DISABLE_AUTH: true
       
