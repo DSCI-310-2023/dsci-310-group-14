@@ -24,11 +24,14 @@ We chose these variables because they are the most indicative of a player's offe
 
 - To run the container please follow the below steps:
 1) Ensure you are in the correct project directory.
-2) Open command prompt and enter the following: <br/>
+2) Open command prompt to pull the Docker image from DockerHub, enter the following: <br/>
+3) `docker pull ysong09/dsci-310-group-14:latest`. This ensures you have the latest image on your local machine. 
+4) Then, paste the following: <br/>
 `docker run -e PASSWORD=apassword -p 8787:8787 -v /$(pwd)://home//rstudio ysong09/dsci-310-group-14:latest`
-3) Go to the link: `http://localhost:8787/`, make sure to use your local port 8787.
-### Update this part 4
-4) Next, in Jupyter lab, open `NBA_All-Star_Analysis.ipynb` and click **Kernel** > **Restart** and re-run all the analysis.
+5) Go to the link: `http://localhost:8787/`, make sure to use your local port 8787.
+6) Enter user: `rstudio` and password: `apassword`
+### Update this part 7
+7) Next, in Jupyter lab, open `NBA_All-Star_Analysis.ipynb` and click **Kernel** > **Restart** and re-run all the analysis.
 
 ## Dependencies
 - tidyverse
