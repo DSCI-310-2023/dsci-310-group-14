@@ -7,7 +7,7 @@
 #' 
 #' @example proportion(datatraining,is_all_stars)
 
-
+library(tidyverse)
 proportion <- function(data,column) {
   proportion <- group_by(data,{{column}}) %>% 
     summarize(Counts = n()) %>% 
