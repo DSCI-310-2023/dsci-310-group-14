@@ -1,12 +1,19 @@
-#' 
-#' Split the dataset into training and testing data to perform cross-validation
-#' Create specification and recipe to fit the model and find the best k.
-#' 
-#
+
+doc <- "Split the dataset into training and testing data to perform cross-validation
+Create specification and recipe to fit the model and find the best k.
+Usage: src/05.modelling.R --data=<data> --outpath=<outpath>
+  
+Options:
+--data=<data>     Path (including filename) to training data 
+--outpath=<outpath> Path to directory where the plots and model should be saved
+" 
 library(tidyverse)
 library(GGally)
 library(tidymodels)
 library(themis)
+library(docopt)
+
+opt <- docopt(doc)
 set.seed(2022)
 
 main <- function(data, outpath){
@@ -45,4 +52,5 @@ main <- function(data, outpath){
   saveRDS(data_fit,file = here::here(paste0(outpath, "/find-k.rds")))
 }
 
+main(opt[["--data"]], opt[["--outpath"]])
 #main(here::here("data/training_set.csv"), "results")

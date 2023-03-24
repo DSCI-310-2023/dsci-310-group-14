@@ -13,5 +13,8 @@ combined_data <- left_join(players, all_stars_filtered, by = c("Year", "Player")
   replace(is.na(.), "Regular") %>% 
   mutate(Is_All_Star = as_factor(Is_All_Star))
 
+if (!dir.exists("data")) {
+  dir.create(here::here("data"))
+}
 #write combined data to csv
 readr::write_csv(combined_data,here::here(paste0("data", "/nba_allstars.csv")))
