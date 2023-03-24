@@ -1,0 +1,334 @@
+0:install.packages("themis")
+0:library(themis)
+0:source("Tests/testhelper.R")
+0:source("R/visualize.R")
+0:View(knn_acc_sample)
+0:View(knn_acc_sample)
+0:source("Tests/testhelper.R")
+0:source("../R/visualize.R")
+0:source("Tests/testhelper.R")
+0:source("../R/visualize.R")
+0:source("Tests/testhelper.R")
+0:source("../R/visualize.R")
+0:getwd()
+0:source("Tests/testhelper.R")
+0:source("R/03_visualize.R")
+0:test_that("title for visualize_knn to be tested", {
+0:test_plot <- visualize_knn(knn_acc_sample, neighbors, acc)
+0:expect_equivalent(test_plot$title, 'Plot of estimated accuracy versus the number of neighbors')
+0:})
+0:source("R/03_visualize.R")
+0:source("Tests/testhelper.R")
+0:source("R/03_visualize.R")
+0:test_that("title for visualize_knn to be tested", {
+0:test_plot <- visualize_knn(knn_acc_sample, neighbors, acc)
+0:expect_equal(test_plot$title, 'Plot of estimated accuracy versus the number of neighbors')
+0:})
+0:source("Tests/testhelper.R")
+0:source("R/03_visualize.R")
+0:library("testthat")
+0:test_that("title for visualize_knn to be tested", {
+0:test_plot <- visualize_knn(knn_acc_sample, neighbors, acc)
+0:expect_equal(test_plot$title, 'Plot of estimated accuracy versus the number of neighbors')
+0:})
+0:source("Tests/testhelper.R")
+0:source("R/03_visualize.R")
+0:library("testthat")
+0:test_that("title for visualize_knn to be tested", {
+0:test_plot <- visualize_knn(knn_acc_sample, neighbors, acc, title = 'Plot title')
+0:expect_equal(test_plot$title, 'Plot title')
+0:})
+0:source("Tests/testhelper.R")
+0:source("R/03_visualize.R")
+0:library("testthat")
+0:test_that("title for visualize_knn to be tested", {
+0:test_plot <- visualize_knn(knn_acc_sample, neighbors, acc, title = 'Plot title')
+0:expect_equal(test_plot$title, 'Plot title')
+0:})
+0:source("Tests/testhelper.R")
+0:source("R/03_visualize.R")
+0:library("testthat")
+0:test_that("title for visualize_knn to be tested", {
+0:test_plot <- visualize_knn(knn_acc_sample, neighbors, acc, title = 'Plot title')
+0:expect_equal(test_plot$title, 'Plot title')
+0:})
+0:source("Tests/testhelper.R")
+0:source("R/03_visualize.R")
+0:library("testthat")
+0:test_that("title for visualize_knn to be tested", {
+0:test_plot <- visualize_knn(knn_acc_sample, neighbors, acc, title = 'Plot title')
+0:expect_equal(test_plot$title, 'Plot title')
+0:})
+0:source("Tests/testhelper.R")
+0:source("R/03_visualize.R")
+0:library("testthat")
+0:test_that("title for visualize_knn to be tested", {
+0:test_plot <- visualize_knn(knn_acc_sample, neighbors, acc, title = 'Plot title')
+0:expect_equal(test_plot(ggtitle(title)), 'Plot title')
+0:})
+0:source("Tests/testhelper.R")
+0:source("R/03_visualize.R")
+0:library("testthat")
+0:test_that("title for visualize_knn to be tested", {
+0:test_plot <- visualize_knn(knn_acc_sample, neighbors, acc, title = 'Plot title')
+0:expect_equal(ggtitle(test_plot$title), 'Plot title')
+0:})
+0:source("Tests/testhelper.R")
+0:source("R/03_visualize.R")
+0:library("testthat")
+0:test_that("title for visualize_knn to be tested", {
+0:test_plot <- visualize_knn(knn_acc_sample, neighbors, acc, title = 'Plot title')
+0:print(test_plot$title)
+0:expect_equal(ggtitle(test_plot$title), 'Plot title')
+0:})
+0:source("Tests/testhelper.R")
+0:source("R/03_visualize.R")
+0:library("testthat")
+0:test_that("title for visualize_knn to be tested", {
+0:test_plot <- visualize_knn(knn_acc_sample, neighbors, acc, title = 'Plot title')
+0:print(test_plot$title)
+0:#expect_equal(test_plot$title, 'Plot title')
+0:})
+0:source("Tests/testhelper.R")
+0:source("R/03_visualize.R")
+0:library("testthat")
+0:test_that("title for visualize_knn to be tested", {
+0:test_plot <- visualize_knn(knn_acc_sample, neighbors, acc, title = 'Plot title')
+0:print(test_plot$title)
+0:expect_equal(test_plot$title, 'Plot title')
+0:})
+0:source("Tests/testhelper.R")
+0:source("R/03_visualize.R")
+0:library("testthat")
+0:test_that("title for visualize_knn to be tested", {
+0:test_plot <- visualize_knn(knn_acc_sample, neighbors, acc, title = 'Plot title')
+0:print(test_plot.title)
+0:expect_equal(test_plot.title, 'Plot title')
+0:})
+0:source("Tests/testhelper.R")
+0:source("R/03_visualize.R")
+0:library("testthat")
+0:test_that("title for visualize_knn to be tested", {
+0:test_plot <- visualize_knn(knn_acc_sample, neighbors, acc, title = 'Plot title')
+0:print(test_plot$title)
+0:expect_equal(test_plot.title, 'Plot title')
+0:})
+0:visualize_knn <- function(df, neighbors, acc, title){
+0:plot <- ggplot(df, aes(x = neighbors, y = acc)) +
+0:geom_line() +
+0:geom_point() +
+0:labs(title = title)+
+0:xlab("Number of K") +
+0:ylab("Accuracy") + theme(text = element_text(size = 18))# +
+0:#ggtitle(title)
+0:return (plot)
+0:}
+0:source("Tests/testhelper.R")
+0:source("R/03_visualize.R")
+0:library("testthat")
+0:test_that("title for visualize_knn to be tested", {
+0:test_plot <- visualize_knn(knn_acc_sample, neighbors, acc, title = 'Plot title')
+0:print(test_plot$title)
+0:expect_equal(test_plot.title, 'Plot title')
+0:})
+0:expect_equal(test_plot$title, 'Plot title')
+0:source("Tests/testhelper.R")
+0:source("R/03_visualize.R")
+0:library("testthat")
+0:test_that("title for visualize_knn to be tested", {
+0:test_plot <- visualize_knn(knn_acc_sample, neighbors, acc, title = 'Plot title')
+0:print(test_plot$title)
+0:expect_equal(test_plot$title, 'Plot title')
+0:})
+0:source("Tests/testhelper.R")
+0:source("R/03_visualize.R")
+0:library("testthat")
+0:test_that("title for visualize_knn to be tested", {
+0:test_plot <- visualize_knn(knn_acc_sample, neighbors, acc, title = 'Plot title')
+0:print(test_plot$title)
+0:expect_equal(test_plot$labs$title, 'Plot title')
+0:})
+0:source("Tests/testhelper.R")
+0:source("R/03_visualize.R")
+0:library("testthat")
+0:test_that("title for visualize_knn to be tested", {
+0:test_plot <- visualize_knn(knn_acc_sample, neighbors, acc, title = 'Plot title')
+0:print(test_plot$title)
+0:expect_equal(test_plot$labs$title, 'Plot title')
+0:})
+0:source("Tests/testhelper.R")
+0:source("R/03_visualize.R")
+0:library("testthat")
+0:test_that("title for visualize_knn to be tested", {
+0:test_plot <- visualize_knn(knn_acc_sample, neighbors, acc, title = 'Plot title')
+0:print(test_plot$title)
+0:expect_equal(test_plot$labs$title, 'Plot title')
+0:})
+0:source("Tests/testhelper.R")
+0:source("R/03_visualize.R")
+0:library("testthat")
+0:test_that("title for visualize_knn to be tested", {
+0:test_plot <- visualize_knn(knn_acc_sample, neighbors, acc, title = 'Plot title')
+0:#print(test_plot$title)
+0:expect_equal(test_plot$label$title, 'Plot title')
+0:})
+0:source("Tests/testhelper.R")
+0:source("R/03_visualize.R")
+0:library("testthat")
+0:test_that("title for visualize_knn to be tested", {
+0:test_plot <- visualize_knn(knn_acc_sample, neighbors, acc, title = 'Plot title')
+0:#print(test_plot$title)
+0:expect_equal(test_plot$label$title, 'Plot title')
+0:})
+0:source("Tests/testhelper.R")
+0:source("R/03_visualize.R")
+0:library("testthat")
+0:test_that("title for visualize_knn to be tested", {
+0:test_plot <- visualize_knn(knn_acc_sample, neighbors, acc, title = 'Plot title')
+0:#print(test_plot$title)
+0:expect_equal(test_plot$label$title, 'Plot title')
+0:})
+0:source("Tests/testhelper.R")
+0:source("R/03_visualize.R")
+0:library("testthat")
+0:test_that("title for visualize_knn to be tested", {
+0:test_plot <- visualize_knn(knn_acc_sample, neighbors, acc, title = 'Plot title')
+0:#print(test_plot$title)
+0:expect_equal(test_plot$label$title, 'Plot title')
+0:})
+0:source("Tests/testhelper.R")
+0:source("R/03_visualize.R")
+0:library("testthat")
+0:test_that("title for visualize_knn to be tested", {
+0:test_plot <- visualize_knn(knn_acc_sample, neighbors, acc, title = 'Plot title')
+0:#print(test_plot$title)
+0:expect_equal(test_plot$label$title, 'Plot title')
+0:})
+0:source("Tests/testhelper.R")
+0:source("R/03_visualize.R")
+0:library("testthat")
+0:test_that("title for visualize_knn to be tested", {
+0:test_plot <- visualize_knn(knn_acc_sample, neighbors, acc, title = 'Plot title')
+0:#print(test_plot$title)
+0:expect_equal(test_plot$label$title, 'Plot title')
+0:})
+1679681259228:library(tidyverse)
+1679681261215:#read data from repo
+1679681261273:players <- read.csv("https://raw.githubusercontent.com/RayNguyent/DSCI-100-project/urls/data/nba_player_stats.csv")
+1679681262210:all_stars <- read.csv("https://raw.githubusercontent.com/RayNguyent/DSCI-100-project/develop/data/all_stars_2000_2016.csv")
+1679681263057:#filter data for specified years
+1679681263144:all_stars_filtered <- all_stars %>% select(Year, Player) %>%
+1679681263212:mutate(Is_All_Star = "All Star")
+1679681263453:#combine players data with all_stars data
+1679681263524:combined_data <- left_join(players, all_stars_filtered, by = c("Year", "Player")) %>%
+1679681263603:replace(is.na(.), "Regular") %>%
+1679681263679:mutate(Is_All_Star = as_factor(Is_All_Star))
+1679681263885:#write combined data to csv
+1679681263970:readr::write_csv(combined_data,here::here(paste0("data", "/nba_allstars.csv")))
+1679681302644:library(tidyverse)
+1679681302690:library(tidymodels)
+1679681308858:set.seed(2022)
+1679681308913:source(here::here("src/season_filter.R"))
+1679681309083:#read data from data folder
+1679681309173:data <- readr::read_csv(here::here("data/nba_allstars.csv"))
+1679681310415:#filter for year segment and clean data
+1679681310493:select_data <- season_filter(data, Year, 2011, 2015) %>%
+1679681310569:filter(Player != "0") %>%
+1679681310640:select(Year, Player, MIN, PTS, FGM, FGA, FTM, FTA, TOV, Is_All_Star)
+1679681310887:data_split <- initial_split(select_data , prop = 0.7, strata = Is_All_Star)
+1679681310981:data_training <- training(data_split)
+1679681311025:data_testing <- testing(data_split)
+1679681311134:readr::write_csv(data_training,file = here::here("data/training_set.csv"))
+1679681311400:readr::write_csv(data_testing,file = here::here("data/testing_set.csv"))
+1679681361482:#'
+1679681361577:#' Split the dataset into training and testing data to perform cross-validation
+1679681361653:#' Create specification and recipe to fit the model and find the best k.
+1679681361737:#'
+1679681361829:#
+1679681361912:library(tidyverse)
+1679681361998:library(GGally)
+1679681362315:library(tidymodels)
+1679681362400:library(themis)
+1679681362742:set.seed(2022)
+1679681362877:main <- function(data, outpath){
+1679681362969:if (!dir.exists(outpath)) {
+1679681363048:dir.create(here::here(outpath))
+1679681363129:}
+1679681363205:data_training <- read.csv(data)
+1679681363265:#Split training data into 5 folds to run cross-validation
+1679681363314:data_fold <- vfold_cv(data_training, v = 5, strata = Is_All_Star)
+1679681363389:#Create a range of possible k values
+1679681363444:k_vals <- tibble(neighbors = seq(from = 1, to = 70, by = 5))
+1679681363528:#Create the recipe and standardise the data and reweigh the proportion of All-stars and
+1679681363576:# versus regular players
+1679681363618:data_recipe <- recipe(Is_All_Star ~ MIN + PTS + FGM + FGA + FTM + FTA + TOV, data = data_training) %>%
+1679681363664:step_scale(all_predictors()) %>%
+1679681363703:step_center(all_predictors()) %>%
+1679681363743:step_upsample(Is_All_Star, over_ratio =1, skip = TRUE)
+1679681363815:saveRDS(data_recipe,file = here::here(paste0(outpath, "/data_recipe.rds")))
+1679681363880:#Create specification
+1679681363917:data_spec <- nearest_neighbor(weight_func = "rectangular", neighbors = tune()) %>%
+1679681363959:set_engine("kknn") %>%
+1679681364001:set_mode("classification")
+1679681364082:#Fit the recipe and specification to find model for a range of different k values
+1679681364123:data_fit <- workflow() %>%
+1679681364166:add_recipe(data_recipe) %>%
+1679681364218:add_model(data_spec) %>%
+1679681364262:tune_grid(resamples = data_fold, grid = k_vals) %>%
+1679681364315:collect_metrics() %>%
+1679681364363:filter(.metric == "accuracy")
+1679681364446:saveRDS(data_fit,file = here::here(paste0(outpath, "/find-k.rds")))
+1679681364496:}
+1679681364581:main(here::here("data/training_set.csv"), "results")
+1679681434394:#'
+1679681434496:#' Fit the new specification with an optimal k value and the recipe to train
+1679681434585:#' the model + assess the quality of the model
+1679681434680:#'
+1679681434785:library(tidyverse)
+1679681434865:library(GGally)
+1679681434963:library(tidymodels)
+1679681435055:library(themis)
+1679681435093:main <- function(training,test,recipe, model, outpath) {
+1679681435132:data_training<- read.csv(training)
+1679681435184:data_testing<- read.csv(test)
+1679681435236:data_recipe<- readRDS(recipe)
+1679681435288:data_fit <- readRDS(model)
+1679681435336:#Plot of accuracy vs k to find best k
+1679681435410:data_plot <- ggplot(data_fit, aes(x = neighbors, y = mean)) +
+1679681435495:geom_line() +
+1679681435574:geom_point() +
+1679681435643:xlab("Number of K") +
+1679681435719:ylab("Accuracy") + theme(text = element_text(size = 16)) +
+1679681435832:ggtitle(" Plot of estimated accuracy versus the number of neighbors")
+1679681435978:ggsave(here::here(paste0(outpath, "/accuracy_vs_k.png")), data_plot, width = 7)
+1679681436144:#New recipe with k = 61
+1679681436185:data_updated_spec <- nearest_neighbor(weight_func = "rectangular", neighbors = 61) %>%
+1679681436225:set_engine("kknn") %>%
+1679681436255:set_mode("classification")
+1679681436305:#Fit new recipe and specification to make a workflow
+1679681436365:data_updated_fit <- workflow() %>%
+1679681436463:add_recipe(data_recipe) %>%
+1679681436532:add_model(data_updated_spec) %>%
+1679681436568:fit(data_training)
+1679681436630:#Use the trained model to predict on testing data
+1679681436671:data_prediction <- predict(data_updated_fit, data_testing) %>%
+1679681436712:bind_cols(data_testing)
+1679681436784:#assess the accuracy of the model
+1679681436827:# data_metrics <- metrics(data_prediction, truth = Is_All_Star, estimate = .pred_class) %>%
+1679681436879:#    filter(.metric == "accuracy") %>%
+1679681436930:#    select(.estimate) %>%
+1679681436975:#    pull()
+1679681437030:#confusion matrix of the classifier results
+1679681437063:data_prediction$Is_All_Star <- as.factor(data_prediction$Is_All_Star)
+1679681437127:confusion <- conf_mat(data_prediction, truth = Is_All_Star, estimate = .pred_class)
+1679681437292:saveRDS(confusion, file = here::here(paste0(outpath, "/prediction_quality.rds")))
+1679681437445:#visualization of the confusion matrix
+1679681437533:confusion_tibble <- tibble(all_star = c("All Star", "All Star", "Regular", "Regular"),
+1679681437612:correctness = c(" Incorrect", "Correct", " Incorrect", "Correct"),
+1679681437673:value = c(3, 23, 59, 237))
+1679681437714:confusion_graph <- ggplot(confusion_tibble, aes(x = all_star, y = value, fill = correctness)) +
+1679681437755:geom_bar(stat = "identity", position = "fill") +
+1679681437795:labs(x = "Type of Player", y = "Correct : Incorrect Prediction Ratio", fill = "Legend", title = "Correct vs Incorrect Ratio of All Star and Regular")
+1679681437856:ggsave(here::here(paste0(outpath, "/confusion_graph.png")), confusion_graph, width = 5, height = 3)
+1679681437888:}
+1679681437922:main(here::here("data/training_set.csv"),here::here("data/testing_set.csv"),here::here("results/data_recipe.rds"),here::here("results/find-k.rds"), "results")
