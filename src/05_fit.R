@@ -30,7 +30,7 @@ main <- function(training,test,recipe, model, outpath) {
     ylab("Accuracy") + theme(text = element_text(size = 16)) + 
     ggtitle(" Plot of estimated accuracy versus the number of neighbors")
   
-  ggsave(here::here(paste0(outpath, "/accuracy_vs_k.png")), data_plot, width = 7)
+  ggsave(here::here(paste0(outpath, "/accuracy_vs_k.png")), data_plot)
   
 #New recipe with k = 61
   data_updated_spec <- nearest_neighbor(weight_func = "rectangular", neighbors = 61) %>%

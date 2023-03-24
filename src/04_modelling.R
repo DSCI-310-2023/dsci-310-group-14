@@ -1,7 +1,7 @@
 
 doc <- "Split the dataset into training and testing data to perform cross-validation
 Create specification and recipe to fit the model and find the best k.
-Usage: src/05.modelling.R --data=<data> --outpath=<outpath>
+Usage: src/04.modelling.R --data=<data> --outpath=<outpath>
   
 Options:
 --data=<data>     Path (including filename) to training data 
@@ -17,9 +17,6 @@ opt <- docopt(doc)
 set.seed(2022)
 
 main <- function(data, outpath){
-  if (!dir.exists(outpath)) {
-    dir.create(here::here(outpath))
-  }
   data_training <- read.csv(data)
 #Split training data into 5 folds to run cross-validation
   data_fold <- vfold_cv(data_training, v = 5, strata = Is_All_Star)
