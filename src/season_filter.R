@@ -12,6 +12,8 @@
 #' @examples
 #'clean_all_stars(data, Year, 2011,2015)
 
+library(tidyverse)
+
 season_filter <- function(data, col, from, to) {
   if (!is.data.frame(data)) {
     stop("data should be a data frame")
