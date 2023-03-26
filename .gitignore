@@ -64,3 +64,14 @@ bundles/
 vendor/pkg/
 pyenv
 Vagrantfile
+
+
+# results and data from output
+results/*
+data/
+
+
+# Additional files from mac-arm output
+.bash_history
+.config/
+.local/

@@ -28,7 +28,7 @@ main <- function(training,test,recipe, model, outpath) {
     geom_point() +
     xlab("Number of K") +
     ylab("Accuracy") + theme(text = element_text(size = 16)) + 
-    ggtitle(" Plot of estimated accuracy versus the number of neighbors")
+    ggtitle("Estimated accuracy versus the number of neighbors")
   
   ggsave(here::here(paste0(outpath, "/accuracy_vs_k.png")), data_plot)
   
