@@ -65,6 +65,10 @@ vendor/pkg/
 pyenv
 Vagrantfile
 
+# Ignore reults and data for git
+results/
+data/
+
 # Additional mac-arm generated files
 .bash_history
 .config/
