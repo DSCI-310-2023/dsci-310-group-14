@@ -1,5 +1,5 @@
 ---
-title: An R Markdown document converted from "NBA_All-Star_Analysis.ipynb"
+title: Predicting NBA All-Star Chance Based on Player Performance
 output: 
   bookdown::html_document2:
     toc: true
@@ -14,12 +14,10 @@ knitr::opts_chunk$set(
 )
 ```
 
-# Predicting NBA All-Star Chance Based on Player Performance
-
 By: Bill Makwae, Ayush Vora, Ray Nguyen, QingRu Kong <br/>
 Modified by: Ray Nguyen, Jeffrey Song, Emilio Dorador, Berkay Talha Acar
 
-## Introduction
+# Introduction
 
 Every year in February, NBA fans rejoice as they get to see their favorite players selected for the all-star game. Players are selected by media and fan votes, meaning that popularity is the nominating factor. However, players are more likely to be popular based on their individual game-to-game performance (Grimshaw & Larson, 2020). Thus, this analysis hopes to answer the question: **Can an NBA player’s selection to the all star game be predicted by their annual performance?**
 
@@ -37,7 +35,7 @@ The variables that we will be looking at for this data set are the following:
 
 We chose these variables because they are the most indicative of a player's offensive output, which is the main focus of the all star game(Nguyen et al., 2021).
 
-## Methods and Results
+# Methods and Results
 
 Because the Themis package is not installed automatically, we must manually install it. 
 
@@ -255,7 +253,7 @@ knitr::include_graphics("results/confusion_graph.png")
 
 **Figure 3: Final Visualization** The blue shade represent the players that our model predicted correctly, while the red shaded area represent the players that our model predicted incorrectly. Overall 0.885 of all star players was predicted correctly, while 0.801 of the regular players were predicted correctly.
 
-## Discussion
+# Discussion
 
 #### Summarize what you found
 
@@ -273,7 +271,7 @@ The impact of our findings could include: helping organizations determine player
 
 Future studies could look at weighing the different player statistics differently based on their perceived value, and see if there are certain statistics that are more influential in predicting a player’s all-star status. Another study could look at classifying whether a player is a good fit for the team, as the player could address any weaknesses in their offense or defense. 
 
-## Work Cited
+# Work Cited
 
 1. Grimshaw, S. D., &amp; Larson, J. S. (2020). Effect of star power on NBA all-star game TV audience. Journal of Sports Economics, 22(2), 139–163. https://doi.org/10.1177/1527002520959127 
 2. Nguyen, N. H., Nguyen, D. T., Ma, B., &amp; Hu, J. (2021). The application of machine learning and Deep Learning in sport: Predicting NBA players’ performance and popularity. Journal of Information and Telecommunication, 1–19. https://doi.org/10.1080/24751839.2021.1977066 
