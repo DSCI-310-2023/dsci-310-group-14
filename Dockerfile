@@ -9,4 +9,4 @@ RUN R -e "install.packages('themis', repos='http://cran.rstudio.com/')"
 RUN R -e "install.packages('kknn', repos='http://cran.rstudio.com/')"
 RUN R -e "install.packages('testthat', repos='http://cran.rstudio.com/')"
 RUN R -e "install.packages('here', repos='http://cran.rstudio.com/')"
-
+RUN R -e "install.packages('bookdown', repos='http://cran.rstudio.com/')"
