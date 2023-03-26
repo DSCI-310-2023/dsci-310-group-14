@@ -64,3 +64,8 @@ bundles/
 vendor/pkg/
 pyenv
 Vagrantfile
+
+# Additional mac-arm generated files
+.bash_history
+.config/
+.local/
