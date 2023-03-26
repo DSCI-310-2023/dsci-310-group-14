@@ -3,7 +3,6 @@ title: Predicting NBA All-Star Chance Based on Player Performance
 output: 
   bookdown::html_document2:
     toc: true
-    number_sections: true
     
 bibliography: doc/references.bib
 ---
