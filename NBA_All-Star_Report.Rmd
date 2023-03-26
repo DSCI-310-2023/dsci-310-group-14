@@ -60,7 +60,7 @@ set.seed(2022)
 
 The dataset is generated is a combination of two datasets which filtered using a left join method specified in the function getallstars(). The final dataset only keeps allstar players specified in the year range. Below is a sample of the output.
 
-```{r data-tbl}
+```{r raw-data-tbl}
 combined_data <- read_csv("data/nba_allstars.csv")
 knitr::kable(head(combined_data))
 # head(combined_data)
