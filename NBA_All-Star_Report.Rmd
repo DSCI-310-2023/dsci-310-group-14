@@ -166,6 +166,7 @@ knitr::include_graphics("results/accuracy_vs_k.png")
 After we determined the best K value for our model, we updated our model by setting neighbours to 61. Then, we updated the workflow to add the recipe, the updated model, and fit the training data with `fit()`. We are using the testing data as this is used to test the accuracy of our model with data unseen before. Finally, we used the `predict()` function with our model and our testing data to see how well our model performed. Then, we binded our columns with the testing data to see the data and predictions side-by-side. 
 
 ```{r}
+## Keeping for reference
 # data_updated_spec <- nearest_neighbor(weight_func = "rectangular", neighbors = 61) %>%
 #     set_engine("kknn") %>%
 #     set_mode("classification")
@@ -182,7 +183,7 @@ After we determined the best K value for our model, we updated our model by sett
 We found the accuracy of the classifier by using the `metrics()` function on the data_prediction dataframe. By setting the truth parameter to Is_All_Star and the estimate parameter to .pred_class, we ended up with a frame of data metrics for when our classifier tries to predict the All Star players. We then filtered the .metric column by the accuracy tag with `filter()` and selected the .estimate column to find the accuracy of our model with `select()`. The overall accuracy of our predication model is 80.7%.
 
 ```{r}
-## REMOVE?
+## REMOVE? Keeping for reference
 # data_metrics <- metrics(data_prediction, truth = Is_All_Star, estimate = .pred_class) %>%
 #     filter(.metric == "accuracy") %>%
 #     select(.estimate) %>%
