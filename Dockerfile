@@ -1,6 +1,6 @@
 from rocker/tidyverse
 
-#tagname - dsci_310_rocker_tidyverse
+#tagname latest
 #install packages
 #running the image - docker run -d -e 8787:8787 -v ${PWD}:/home/rstudio
 RUN R -e "install.packages('GGally', repos='http://cran.rstudio.com/')"
