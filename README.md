@@ -19,8 +19,8 @@ The variables that we will be looking at for this data set are the following:
 We chose these variables because they are the most indicative of a player's offensive output, which is the main focus of the all star game(Nguyen et al., 2021).
 
 # Replication
-- This project is attached with a Dockerfile using a JupyterLab R-Notebook image from Juypter Image.
-  The base image can be accessed here: https://hub.docker.com/r/jupyter/r-notebook
+- This project is attached with a Dockerfile using a Rocker Tidyverse image.
+  The base image can be accessed here: https://hub.docker.com/r/rocker/tidyverse
 
 - To run the container please follow the below steps:
 1) Ensure you are in the correct project directory.
@@ -30,8 +30,13 @@ We chose these variables because they are the most indicative of a player's offe
 `docker run -e PASSWORD=apassword -p 8787:8787 -v /$(pwd)://home//rstudio ysong09/dsci-310-group-14:latest`
 5) Go to the link: `http://localhost:8787/`, make sure to use your local port 8787.
 6) Enter user: `rstudio` and password: `apassword`
-### Update this part 7
-7) Next, in Jupyter lab, open `NBA_All-Star_Analysis.ipynb` and click **Kernel** > **Restart** and re-run all the analysis.
+
+- To recreate the analysis and results:
+1) Delete the `data/` and `results/` folders if you have them. 
+2) The step above ensures that `make` knows that these files and figures need to be recreated through the timestamps.
+3) Then go to the Rstudio terminal and enter the following command:
+`make all`
+4) This might take a couple of minutes, but by the end, you should have the folders `data/` and `results/` which contain the figures, recipes and csv files used in creating the R-Markdown Analysis file for our project.
 
 ## Dependencies
 - tidyverse
@@ -41,6 +46,8 @@ We chose these variables because they are the most indicative of a player's offe
 - kknnn
 - testthat
 - here
+- docopt 
+- bookdown
 
 ## Team Members
 - Berkay Talha Acar 
