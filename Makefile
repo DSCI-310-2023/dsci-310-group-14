@@ -1,5 +1,5 @@
 
-all: results/find-k.rds results/accuracy_vs_k.png results/prediction_quality.rds results/confusion_graph.png results/averages.csv results/proportion.csv
+all: results/find-k.rds results/accuracy_vs_k.png results/prediction_quality.rds results/confusion_graph.png results/averages.csv results/proportion.csv doc/Final_Report.html doc/Final_Report.pdf
 
 #load 2 dataset and combine
 data/nba_allstars.csv: src/01_load_data.R
@@ -20,8 +20,13 @@ results/data_recipe.rds results/find-k.rds: data/training_set.csv src/04_modelli
 #Fit the model and asssess quality
 results/accuracy_vs_k.png results/confusion_graph.png results/prediction_quality.rds: results/find-k.rds src/05_fit.R data/training_set.csv data/testing_set.csv results/data_recipe.rds
 	Rscript src/05_fit.R --training=data/training_set.csv --test=data/testing_set.csv --recipe=results/data_recipe.rds --model=results/find-k.rds --outpath=results
-	
+
+# render R Markdown report in HTML and PDF
+doc/Final_Report.html doc/Final_Report.pdf: NBA_All-Star_Report.Rmd doc/references.bib
+	Rscript -e "rmarkdown::render('NBA_All-Star_Report.Rmd', c('bookdown::html_document2', 'bookdown::pdf_document2'))"
+
 clean: 
 	rm -rf data
 	rm -rf results
+	rm -rf doc/Final_Report.pdf doc/Final_Report.html
 
