@@ -9,6 +9,7 @@ Options:
 library(tidyverse)
 source(here::here("src/proportion.r"))
 library(docopt)
+library(GGally)
 
 opt <- docopt(doc)
 
@@ -22,6 +23,16 @@ main <- function(outpath){
               
   proportion_summary <- proportion(data, Is_All_Star)
   write_csv(proportion_summary,file.path(outpath,"proportion.csv"))
+  
+  options(repr.plot.width = 9, repr.plot.height = 9) 
+  plot <- ggpairs(data, columns = 3:9, legend = 1,
+                  ggplot2::aes(color = Is_All_Star, alpha = 0.4),
+                  upper = list(continuous = "points", wrap("cor", size = 2.5))) +
+    labs(title = "Player Distributions of Various Players Statistics", fill = "Players' type") +
+    theme(plot.title = element_text(size = 25))
+  
+  ggsave(here::here(paste0(outpath, "/stats_distributions.png")), plot)
+  
 }
 
 main(opt[["--outpath"]])

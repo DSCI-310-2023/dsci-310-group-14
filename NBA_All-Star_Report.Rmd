@@ -25,14 +25,15 @@ Every year in February, NBA fans rejoice as they get to see their favorite playe
 In order to answer this question, we will be using two sets of data, one from ["NBA Player Stats” on nba.com](https://www.nba.com/stats/players/traditional/?sort=PTS&dir=-1&Season=2015-16&SeasonType=Regular%20Season) and [“NBA All Stars 2000-2016” from kaggle.com](https://www.kaggle.com/fmejia21/nba-all-star-game-20002016?select=NBA+All+Stars+2000-2016+-+Sheet1.csv). NBA Player Stats includes all the NBA player statistics for each season from 2010-2016 and the All Star dataset includes the all star statistics from 2000-2016. Using these datasets we aim to make a classification model that will predict whether a player will be an all star for each season based on their annual performances.
 
 The variables that we will be looking at for this data set are the following:<br>
-- Year: Season that the player played.<br>
-- Player: Name of the player.<br>
-- MIN: Average number of minutes that the player played per game.<br>
-- PTS: Average number of points that the player scored per game.<br>
-- FG.: Field Goal Percentage.<br>
-- REB: Average number of rebounds that the player made per game.<br>
-- AST: Average number of assists that the player got per game.<br>
-- Is_All_Star: Whether the player was an All-Star in that season. **This is our classifer.**<br>
+- Year: Season that the player played.<br/>
+- Player: Name of the player.<br/>
+- MIN: Average number of minutes that the player played per game.<br/>
+- PTS: Average number of points that the player scored per game.<br/>
+- FG.: Field Goal Percentage.<br/>
+- REB: Average number of rebounds that the player made per game.<br/>
+- AST: Average number of assists that the player got per game.<br/>
+- Is_All_Star: Whether the player was an All-Star in that season.<br/>
+**This is our classifer.**<br/>
 
 We chose these variables because they are the most indicative of a player's offensive output, which is the main focus of the all star game(Nguyen et al., 2021).
 
@@ -78,6 +79,11 @@ knitr::kable(proportion_summary, caption = "Percentage and count of All-Star pla
 
 We use `ggpairs()` from the GGally library to make a scatterplot for every pair of variables to visualize the relationship between them. By doing so, we can see what variables truly distinguish All Star players from regular players.
 
+```{r fig4, fig.cap = "Player Distributions of Various Players Statistics", out.width = "80%"}
+
+knitr::include_graphics("results/stats_distributions.png")
+
+```
 
 Cross validation(`vfold_cv`) will give us a higher accuracy as it split our training data into 4 training and 1 testing. This way, there would be 5 tests done to evalute the accuracy of the model instead of just one. We chose to fold by 5 because our dataset is quite large, folidng by 10 will take too much time for the kernal to run. We create the `k-vals` data frame with the “neighbors” variable containing values from 1 to 70, stepping by 5, using the seq function. After experimenting with different K ranging, 1 to 70 stepping by 5 run in a relatively short period of time while giving us a decent K range, therefore we chose it as our K range.
 
