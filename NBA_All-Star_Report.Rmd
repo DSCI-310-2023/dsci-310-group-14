@@ -3,8 +3,6 @@ title: Predicting NBA All-Star Chance Based on Player Performance
 output: 
   bookdown::html_document2:
     toc: true
-  bookdown::pdf_document2:
-    toc: true
     
 bibliography: doc/references.bib
 ---
@@ -51,15 +49,15 @@ set.seed(2022)
 The dataset is generated is a combination of two datasets which filtered using a left join method specified in the function getallstars(). The final dataset only keeps allstar players specified in the year range. Below is a sample of the output.
 
 ```{r table1,echo= FALSE,message=FALSE}
-combined_data <- read_csv("data/nba_allstars.csv")
+combined_data <- read_csv("data/processed/nba_allstars.csv")
 knitr::kable(head(combined_data),caption = "Summary of all star players dataset")
 ```
 
 We used set.seed(2022) to ensure the same set of data is used and the data set is reproducible. Used `initial_split()` function to split the data set into 70:30 ratio of training and testing data. We choose 70:30 ratio because it is an optimal ratio to represent the training and testing data, as we want to maximize data used for training but still leave some data left for testing the classification model. `Is_All_Star` is assigned as the strata because it is the classifier we want to find. 70% of the data is assigned to data_training using `training()`, and 30% of the data is assigned to data_testing using `testing()`. 
 
 ```{r,message = FALSE,echo= FALSE}
-data_training <- read_csv("data/training_set.csv")
-data_testing <- read_csv("data/testing_set.csv")
+data_training <- read_csv("data/processed/training_set.csv")
+data_testing <- read_csv("data/processed/testing_set.csv")
 ```
 
 We want to calculate the average for each variable by first group the observations by `Is_All_Star` and then use `summarize()` to compute the means. 

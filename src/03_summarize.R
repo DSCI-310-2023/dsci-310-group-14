@@ -16,7 +16,7 @@ opt <- docopt(doc)
 main <- function(outpath){
   
 #summarize the averages across the variables
-  data<- read.csv(here::here("data/training_set.csv"))
+  data<- read.csv(here::here("data/processed/training_set.csv"))
   averages <- group_by(data, Is_All_Star) %>% 
     summarize(across(MIN:TOV, mean))
   write_csv(averages,file.path(outpath,"averages.csv"))
