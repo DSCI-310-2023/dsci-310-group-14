@@ -32,11 +32,12 @@ We chose these variables because they are the most indicative of a player's offe
 6) Enter user: `rstudio` and password: `apassword`
 
 - To recreate the analysis and results:
-1) Delete the `data/` and `results/` folders if you have them. 
+1) run `make clean` in the Rstudio terminal in the `http://localhost:8787/` environment
 2) The step above ensures that `make` knows that these files and figures need to be recreated through the timestamps.
-3) Then go to the Rstudio terminal and enter the following command:
+3) Then go to the Rstudio terminal again and enter the following command:
 `make all`
 4) This might take a couple of minutes, but by the end, you should have the folders `data/` and `results/` which contain the figures, recipes and csv files used in creating the R-Markdown Analysis file for our project.
+5) You can find the rendered report file `NBA_All-Star_Report.html` in the root of the repository after running `make all` in `step 3`
 
 ## Dependencies
 - tidyverse
