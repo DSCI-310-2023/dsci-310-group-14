@@ -21,17 +21,27 @@ We chose these variables because they are the most indicative of a player's offe
 # Replication
 - This project is attached with a Dockerfile using a Rocker Tidyverse image.
   The base image can be accessed here: https://hub.docker.com/r/rocker/tidyverse
-
-- To run the container please follow the below steps:
+  
+  
+To clone this repository into your local computer:
+1) Click on the green `<> Code` button and Copy the HTTPS of the repository
+2) Open Terminal and navigate to your desire directory in which you clone the repository 
+3) Clone the repository using the following command: <br/>
+  `git clone <URL>`
+4) Navigate to the project directory using the following command: <br/>
+ `cd dsci-310-group-14`
+  
+To run the container please follow the below steps:
 1) Ensure you are in the correct project directory.
 2) Open command prompt to pull the Docker image from DockerHub, enter the following: <br/>
 3) `docker pull ysong09/dsci-310-group-14:latest`. This ensures you have the latest image on your local machine. 
 4) Then, paste the following: <br/>
 `docker run -e PASSWORD=apassword -p 8787:8787 -v /$(pwd)://home//rstudio ysong09/dsci-310-group-14:latest`
-5) Go to the link: `http://localhost:8787/`, make sure to use your local port 8787.
+5) Copy the following into a web browser of your choice: `http://localhost:8787/`, make sure to use your local port 8787.
 6) Enter user: `rstudio` and password: `apassword`
 
-- To recreate the analysis and results:
+
+To recreate the analysis and results:
 1) run `make clean` in the Rstudio terminal in the `http://localhost:8787/` environment
 2) The step above ensures that `make` knows that these files and figures need to be recreated through the timestamps.
 3) Then go to the Rstudio terminal again and enter the following command:
