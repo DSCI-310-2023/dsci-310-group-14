@@ -6,7 +6,7 @@ source(here::here("src/season_filter.R"))
 
 
 #read data from data folder
-data <- readr::read_csv(here::here("data/nba_allstars.csv"))
+data <- readr::read_csv(here::here("data/processed/nba_allstars.csv"))
 
 #filter for year segment and clean data
 select_data <- season_filter(data, Year, 2011, 2015) %>%
@@ -19,7 +19,7 @@ data_training <- training(data_split)
 data_testing <- testing(data_split)
 
 
-readr::write_csv(data_training,file = here::here("data/training_set.csv"))
-readr::write_csv(data_testing,file = here::here("data/testing_set.csv"))
+readr::write_csv(data_training,file = here::here("data/processed/training_set.csv"))
+readr::write_csv(data_testing,file = here::here("data/processed/testing_set.csv"))
 
 
