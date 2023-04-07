@@ -33,7 +33,7 @@ The variables that we will be looking at for this data set are the following:<br
 - Is_All_Star: Whether the player was an All-Star in that season.<br/>
 **This is our classifer.**<br/>
 
-We chose these variables because they are the most indicative of a player's offensive output, which is the main focus of the all star game(Nguyen et al., 2021).
+We chose these variables because they are the most indicative of a player's offensive output, which is the main focus of the all star game (Nguyen et al., 2021).
 
 # Methods and Results
 
@@ -77,7 +77,7 @@ knitr::kable(proportion_summary, caption = "Percentage and count of All-Star pla
 
 We use `ggpairs()` from the GGally library to make a scatterplot for every pair of variables to visualize the relationship between them. By doing so, we can see what variables truly distinguish All Star players from regular players.
 
-```{r fig4, fig.cap = "Player Distributions of Various Players Statistics", out.width = "80%"}
+```{r fig4, fig.cap = "Player Distributions of Various Players Statistics", out.width = "100%"}
 
 knitr::include_graphics("results/stats_distributions.png")
 
