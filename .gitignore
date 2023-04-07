@@ -65,8 +65,9 @@ vendor/pkg/
 pyenv
 Vagrantfile
 
-
-
+# log and tex files, noise
+.log
+.tex
 
 # Additional files from mac-arm output
 .bash_history
