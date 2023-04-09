@@ -7,7 +7,6 @@ Options:
 
 
 library(tidyverse)
-source(here::here("src/proportion.r"))
 library(docopt)
 library(GGally)
 
