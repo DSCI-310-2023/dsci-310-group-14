@@ -23,12 +23,13 @@ main <- function(training,test,recipe, model, outpath) {
   data_recipe<- readRDS(recipe)
   data_fit <- readRDS(model)
 #Plot of accuracy vs k to find best k  
-  data_plot <- ggplot(data_fit, aes(x = neighbors, y = mean)) +
-    geom_line() +
-    geom_point() +
-    xlab("Number of K") +
-    ylab("Accuracy") + theme(text = element_text(size = 16)) + 
-    ggtitle("Estimated accuracy versus the number of neighbors")
+  NBASTARS::visualize_knn(data_fit,x=neighbors,y=mean,title="Estimated accuracy versus the number of neighbors")
+#  data_plot <- ggplot(data_fit, aes(x = neighbors, y = mean)) +
+#    geom_line() +
+#    geom_point() +
+ #   xlab("Number of K") +
+ #   ylab("Accuracy") + theme(text = element_text(size = 16)) + 
+#    ggtitle("Estimated accuracy versus the number of neighbors")
   
   ggsave(here::here(paste0(outpath, "/accuracy_vs_k.png")), data_plot)
   

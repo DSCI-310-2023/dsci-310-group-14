@@ -21,7 +21,8 @@ main <- function(outpath){
     summarize(across(MIN:TOV, mean))
   write_csv(averages,file.path(outpath,"averages.csv"))
               
-  proportion_summary <- proportion(data, Is_All_Star)
+  proportion_summary <- NBASTARS::proportion(data, Is_All_Star)
+  
   write_csv(proportion_summary,file.path(outpath,"proportion.csv"))
   
   options(repr.plot.width = 14, repr.plot.height = 9) 

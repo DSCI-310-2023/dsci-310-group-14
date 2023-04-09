@@ -3,6 +3,7 @@ title: Predicting NBA All-Star Chance Based on Player Performance
 output: 
   bookdown::html_document2:
     toc: true
+    theme: united
     
 bibliography: doc/references.bib
 ---
@@ -18,7 +19,7 @@ Modified by: Ray Nguyen, Jeffrey Song, Emilio Dorador, Berkay Talha Acar
 
 # Introduction
 
-Every year in February, NBA fans rejoice as they get to see their favorite players selected for the all-star game. Players are selected by media and fan votes, meaning that popularity is the nominating factor. However, players are more likely to be popular based on their individual game-to-game performance (Grimshaw & Larson, 2020). Thus, this analysis hopes to answer the question: **Can an NBA player’s selection to the all star game be predicted by their annual performance?**
+Every year in February, NBA fans rejoice as they get to see their favorite players selected for the all-star game. Players are selected by media and fan votes, meaning that popularity is the dominating factor. However, players are more likely to be popular based on their individual game-to-game performance (@star-power). Thus, this analysis hopes to answer the question: **Can an NBA player’s selection to the all-star game be predicted by their annual performance?**
 
 In order to answer this question, we will be using two sets of data, one from ["NBA Player Stats” on nba.com](https://www.nba.com/stats/players/traditional/?sort=PTS&dir=-1&Season=2015-16&SeasonType=Regular%20Season) and [“NBA All Stars 2000-2016” from kaggle.com](https://www.kaggle.com/fmejia21/nba-all-star-game-20002016?select=NBA+All+Stars+2000-2016+-+Sheet1.csv). NBA Player Stats includes all the NBA player statistics for each season from 2010-2016 and the All Star dataset includes the all star statistics from 2000-2016. Using these datasets we aim to make a classification model that will predict whether a player will be an all star for each season based on their annual performances.
 
@@ -31,9 +32,10 @@ The variables that we will be looking at for this data set are the following:<br
 - REB: Average number of rebounds that the player made per game.<br/>
 - AST: Average number of assists that the player got per game.<br/>
 - Is_All_Star: Whether the player was an All-Star in that season.<br/>
-**This is our classifer.**<br/>
+**This is our classifier.**<br/>
 
-We chose these variables because they are the most indicative of a player's offensive output, which is the main focus of the all star game (Nguyen et al., 2021).
+We chose these variables because they are the most indicative of a player's offensive output, which is the main focus of the all star game (@data-mining)
+
 
 # Methods and Results
 
@@ -68,14 +70,14 @@ averages <- read_csv("results/averages.csv")
 knitr::kable(averages, caption = "Mean statistics of All-Star Players versus regular players")
 ```
 
-We still group by `Is_All_Star` and use summarize to calculate the number of observations for each group then divide by the total number of observations.
+We still grouped by `Is_All_Star` and used summarize to calculate the number of observations for each group then divided by the total number of observations.
 
 ```{r table3}
 proportion_summary <- read_csv("results/proportion.csv")
 knitr::kable(proportion_summary, caption = "Percentage and count of All-Star players and regular players in the overall dataset")
 ```
 
-We use `ggpairs()` from the GGally library to make a scatterplot for every pair of variables to visualize the relationship between them. By doing so, we can see what variables truly distinguish All Star players from regular players.
+We used `ggpairs()` from the `GGally` library to make a scatterplot for every pair of variables to visualize the relationship between them. By doing so, we can see what variables truly distinguish All Star players from regular players.
 
 ```{r fig4, fig.cap = "Player Distributions of Various Players Statistics", out.width = "100%"}
 
@@ -83,9 +85,9 @@ knitr::include_graphics("results/stats_distributions.png")
 
 ```
 
-Cross validation(`vfold_cv`) will give us a higher accuracy as it split our training data into 4 training and 1 testing. This way, there would be 5 tests done to evalute the accuracy of the model instead of just one. We chose to fold by 5 because our dataset is quite large, folidng by 10 will take too much time for the kernal to run. We create the `k-vals` data frame with the “neighbors” variable containing values from 1 to 70, stepping by 5, using the seq function. After experimenting with different K ranging, 1 to 70 stepping by 5 run in a relatively short period of time while giving us a decent K range, therefore we chose it as our K range.
+Cross validation(`vfold_cv`) will give us a higher accuracy as it split our training data into 4 training and 1 testing. This way, there would be 5 tests done to evaluate the accuracy of the model instead of just one. We chose to fold by 5 because our dataset is quite large, folding by 10 will take too much time for the kernel to run. We create the `k-vals` data frame with the “neighbors” variable containing values from 1 to 70, stepping by 5, using the seq function. After experimenting with different K ranging, 1 to 70 step by 5 run in a relatively short period of time while giving us a decent K range, therefore we chose it as our K range.
 
-Then, we create a recipe by setting the classifier to be `Is_All_Star` and the rest are predictors. Next, we centered and scale the data with `step_center()` and `step_scale()`. After, we balanced the data using `step_upsample()`, since All-Stars only make up 10% of the dataset (as shown by `proportions`), now the all star and regular varible will be at a 1:1 ratio. Afterwards, we created a tuning model specification for K-nearest neighbors classification by calling `nearest_neighbors()` and setting the engine to be “kknn” with `set_engine()` and the model to be “classification” with `set_mode()`. We chose classification because our classifier is a factor, and we are trying to find whether a player will be all star or regular player which does not involve numeric value output.
+Then, we create a recipe by setting the classifier to be `Is_All_Star` and the rest are predictors. Next, we centered and scale the data with `step_center()` and `step_scale()`. After, we balanced the data using `step_upsample()`, since All-Stars only make up 10% of the dataset (as shown by `proportions`), now the all star and regular variable will be at a 1:1 ratio. Afterward, we created a tuning model specification for K-nearest neighbors classification by calling `nearest_neighbors()` and setting the engine to be “kknn” with `set_engine()` and the model to be “classification” with `set_mode()`. We chose classification because our classifier is a factor, and we are trying to find whether a player will be all star or regular player which does not involve numeric value output.
 
 Lastly, we add the recipe and the model specification into a workflow and let it run the cross validation test on data_fold by passing k_vals into grid argument of `tune_grid()`. Then we use `collect_metrics()` and `filter()` to only look at the “accuracy” part of .metric to acquire the accuracy of our model for each K.
 
@@ -107,7 +109,7 @@ knitr::include_graphics("results/accuracy_vs_k.png")
 ```
 The above graph shows the accuracy for each neighbour input. The highest accuracy is near the first K. A steep decline to 0.825 when we have one neighbour vs 15 neighbours and a gentle decline from 15-32 neighbours. Starting from ~32 neighbours the accuracy increase to a small peak every 10 neighbours and decline by half every 10 neighbours. 
 
-After we determined the best K value for our model, we updated our model by setting neighbours to 61. Then, we updated the workflow to add the recipe, the updated model, and fit the training data with `fit()`. We are using the testing data as this is used to test the accuracy of our model with data unseen before. Finally, we used the `predict()` function with our model and our testing data to see how well our model performed. Then, we binded our columns with the testing data to see the data and predictions side-by-side. 
+After we determined the best K value for our model, we updated our model by setting neighbours to 61. Then, we updated the workflow to add the recipe, the updated model, and fit the training data with `fit()`. We are using the testing data as this is used to test the accuracy of our model with data unseen before. Finally, we used the `predict()` function with our model and our testing data to see how well our model performed. Then, we bound our columns with the testing data to see the data and predictions side-by-side. 
 
 We found the accuracy of the classifier by using the `metrics()` function on the data_prediction dataframe. By setting the truth parameter to Is_All_Star and the estimate parameter to .pred_class, we ended up with a frame of data metrics for when our classifier tries to predict the All Star players. We then filtered the .metric column by the accuracy tag with `filter()` and selected the .estimate column to find the accuracy of our model with `select()`. The overall accuracy of our predication model is 80.7%.
 
@@ -139,14 +141,10 @@ This analysis went as expected. We initially thought that higher player statisti
 
 ## Discuss what impact could such findings have?
 
-The impact of our findings could include: helping organizations determine player value when negotiating player contracts to maximize the return outcome of their investment, determining trade value, and even the overall organization value. Our model would also allow teams to focus resources on certain players in order to increase their chance of earning the all star title.
+The impact of our findings could include: helping organizations determine player value when negotiating player contracts to maximize the return outcome of their investment, determining trade value, and even the overall organization value. Our model would also allow teams to focus resources on certain players in order to increase their chance of earning the all star title (@decoy).
 
 ## Discuss what future questions could this lead to?
 
-Future studies could look at weighing the different player statistics differently based on their perceived value, and see if there are certain statistics that are more influential in predicting a player’s all-star status. Another study could look at classifying whether a player is a good fit for the team, as the player could address any weaknesses in their offense or defense. 
+Future studies could look at weighing the different player statistics differently based on their perceived value, and see if there are certain statistics that are more influential in predicting a player’s all-star status (@machine-leaning). Another study could look at classifying whether a player is a good fit for the team, as the player could address any weaknesses in their offense or defense. 
 
 # Work Cited
-[@decoy;
-@machine-leaning;
-@star-power;
-@data-mining]
