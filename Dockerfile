@@ -12,4 +12,4 @@ RUN R -e "install.packages('testthat', repos='http://cran.rstudio.com/')"
 RUN R -e "install.packages('here', repos='http://cran.rstudio.com/')"
 RUN R -e "install.packages('bookdown', repos='http://cran.rstudio.com/')"
 RUN R -e "install.packages('bookdown', repos='http://cran.rstudio.com/')"
-Run R -e "install_github("https://github.com/DSCI-310/dsci-310-group-14-pkg")
+RUN R -e "install_github("https://github.com/DSCI-310/dsci-310-group-14-pkg")
