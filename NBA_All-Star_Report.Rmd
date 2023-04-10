@@ -52,7 +52,7 @@ The dataset is generated is a combination of two datasets which filtered using a
 
 ```{r table1,echo= FALSE,message=FALSE}
 combined_data <- read_csv("data/processed/nba_allstars.csv")
-knitr::kable(head(combined_data),caption = "Summary of all star players dataset")
+knitr::kable(head(combined_data), caption = "Summary of all star players dataset")
 ```
 
 We used set.seed(2022) to ensure the same set of data is used and the data set is reproducible. Used `initial_split()` function to split the data set into 70:30 ratio of training and testing data. We choose 70:30 ratio because it is an optimal ratio to represent the training and testing data, as we want to maximize data used for training but still leave some data left for testing the classification model. `Is_All_Star` is assigned as the strata because it is the classifier we want to find. 70% of the data is assigned to data_training using `training()`, and 30% of the data is assigned to data_testing using `testing()`. 
@@ -80,9 +80,7 @@ knitr::kable(proportion_summary, caption = "Percentage and count of All-Star pla
 We used `ggpairs()` from the `GGally` library to make a scatterplot for every pair of variables to visualize the relationship between them. By doing so, we can see what variables truly distinguish All Star players from regular players.
 
 ```{r fig4, fig.cap = "Player Distributions of Various Players Statistics", out.width = "100%"}
-
 knitr::include_graphics("results/stats_distributions.png")
-
 ```
 
 Cross validation(`vfold_cv`) will give us a higher accuracy as it split our training data into 4 training and 1 testing. This way, there would be 5 tests done to evaluate the accuracy of the model instead of just one. We chose to fold by 5 because our dataset is quite large, folding by 10 will take too much time for the kernel to run. We create the `k-vals` data frame with the “neighbors” variable containing values from 1 to 70, stepping by 5, using the seq function. After experimenting with different K ranging, 1 to 70 step by 5 run in a relatively short period of time while giving us a decent K range, therefore we chose it as our K range.
@@ -93,19 +91,15 @@ Lastly, we add the recipe and the model specification into a workflow and let it
 
 
 ```{r}
-
 data_recipe <- readRDS("results/data_recipe.rds")
 
 data_fit <- readRDS("results/find-k.rds")
-
 ```
 
 When we graphed the various possible K values by accuracy, it seemed like 1 is a good K but this is not accurate because it leads to overfitting. Instead, we chose an odd number that is near 60, such as 61. As we have experimented, any K value ranging from 30-70 does not make too much difference to the accuracy of predicting the All Star player, therefore, we chose 61 as it has the highest model accuracy rate within the 30-70 K range.
 
 ```{r fig1, fig.cap = "Plot of estimated accuracy versus the number of neighbors", out.width = "80%"}
-
 knitr::include_graphics("results/accuracy_vs_k.png")
-
 ```
 The above graph shows the accuracy for each neighbour input. The highest accuracy is near the first K. A steep decline to 0.825 when we have one neighbour vs 15 neighbours and a gentle decline from 15-32 neighbours. Starting from ~32 neighbours the accuracy increase to a small peak every 10 neighbours and decline by half every 10 neighbours. 
 
@@ -118,7 +112,7 @@ Next, we used conf_mat() on the data_prediction data frame to create a confusion
 ```{r table4, out.width="80%"}
 confusion <- readRDS("results/prediction_quality.rds")
 confusion
-#knitr::kable(duma, caption = "Confusion Matrix of Prediction Accuracy")
+# knitr::kable(duma, caption = "Confusion Matrix of Prediction Accuracy")
 ```
 
 Above is a confusion matrix displaying how many All Star and Regular our model prediction is correct and wrong. Out of 26 All Star, our model predicted 23 All Star correctly and 3 wrong. Out of 296 Regular players, 237 players are predicted correcly and 59 were predicted wrong. This brings our accuacry of All Star to 88.5%.
