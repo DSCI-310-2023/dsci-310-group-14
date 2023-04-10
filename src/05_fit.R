@@ -10,10 +10,10 @@ Options:
 --outpath=<outpath> Path to directory where the plots and model should be saved
 " -> doc
 library(tidyverse)
-library(GGally)
 library(tidymodels)
 library(themis)
 library(docopt)
+library(NBASTARS)
 
 opt <- docopt(doc)
 

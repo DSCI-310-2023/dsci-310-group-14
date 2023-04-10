@@ -5,7 +5,7 @@ Options:
 --outpath=<outpath> Path to directory where the plots and model should be saved
 "
 
-
+library(NBASTARS)
 library(tidyverse)
 library(docopt)
 library(GGally)
