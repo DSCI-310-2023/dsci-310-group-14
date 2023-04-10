@@ -50,15 +50,15 @@ To recreate the analysis and results:
 5) You can find the rendered report file `NBA_All-Star_Report.html` in the root of the repository after running `make all` in `step 3`
 
 ## Dependencies
-- tidyverse
-- GGally
-- tidymodels
-- themis
-- kknnn
-- testthat
-- here
-- docopt 
-- bookdown
+- tidyverse: 2.0.0
+- GGally: 2.1.2
+- tidymodels: 1.0.0
+- themis: 1.0.0
+- kknnn: 1.3.1
+- testthat: 3.1.7
+- here: 1.0.1
+- docopt: 0.7.1 
+- bookdown: 0.33
 
 ## Team Members
 - Berkay Talha Acar 
