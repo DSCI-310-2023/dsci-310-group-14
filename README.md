@@ -59,6 +59,10 @@ To recreate the analysis and results:
 - here: 1.0.1
 - docopt: 0.7.1 
 - bookdown: 0.33
+- devtools: 2.4.3
+- NBASTARS: 0.0.0.9000
+
+Note: NBASTARS is our package, and repo available at: `https://github.com/DSCI-310/dsci-310-group-14-pkg`
 
 ## Team Members
 - Berkay Talha Acar 
